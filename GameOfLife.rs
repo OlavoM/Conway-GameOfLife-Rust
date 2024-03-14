@@ -1,6 +1,6 @@
 use std::io; 
 
-const TAM: usize = 5;
+const TAM: usize = 15;
 
 fn clear_screen() {
     std::process::Command::new("sh").arg("-c").arg("clear").status().unwrap();
@@ -13,7 +13,7 @@ fn imprimir_matriz(matriz: &[[bool; TAM]; TAM]) {
 
         for j in 0..TAM {
             if matriz[i][j] {
-                print!("\u{2B1B}"); // Vivo imprime como quadrado preenchido
+                print!("\u{2588}\u{2588}"); // Vivo imprime como quadrado preenchido
             } else {
                 print!("__"); // Morto imprime como underline (quadrado vazio)
             }
@@ -27,6 +27,8 @@ fn main() {
     let mut matriz_atual: [[bool; TAM]; TAM] = [[false; TAM]; TAM];
     let mut matriz_futura: [[bool; TAM]; TAM] = [[false; TAM]; TAM];
 
+    matriz_atual[1][1] = true;
+
     loop {
         clear_screen();
         println!("Jogo da vida de Conway\n");
@@ -37,7 +39,7 @@ fn main() {
         println!("2 - Usar um padrao pronto");
         let mut opcao = String::new();
         io::stdin().read_line(&mut opcao).expect("Falha ao ler a opção");
-        let opcao: i32 = opcao.trim().parse();
+        let opcao: i32 = opcao.trim().parse().expect("Entrada inválida");
 
         if opcao == 0 {
             break;
