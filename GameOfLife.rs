@@ -1,10 +1,12 @@
-const TAM: int = 5;
+use std::io; 
+
+const TAM: usize = 5;
 
 fn clear_screen() {
     std::process::Command::new("sh").arg("-c").arg("clear").status().unwrap();
 }
 
-fn imprimir_matriz(matriz: &mut [[bool; TAM]; TAM]) {
+fn imprimir_matriz(matriz: &[[bool; TAM]; TAM]) {
     println!("  _0|_1|_2|_3|_4|_5|_6|_7|_8|_9|10|11|12|13|14|");
     for i in 0..TAM {
         print!("{} ", (i as u8 + 65) as char); // Letras das linhas
@@ -28,14 +30,14 @@ fn main() {
     loop {
         clear_screen();
         println!("Jogo da vida de Conway\n");
-        imprimir_matriz(matriz_atual);
+        imprimir_matriz(&matriz_atual);
         println!("\n\n\nEscolha uma opcao:");
         println!("0 - Sair");
         println!("1 - Preencher manualmente a matriz");
         println!("2 - Usar um padrao pronto");
         let mut opcao = String::new();
         io::stdin().read_line(&mut opcao).expect("Falha ao ler a opção");
-        let opcao: int = match opcao.trim().parse() 
+        let opcao: i32 = opcao.trim().parse();
 
         if opcao == 0 {
             break;
