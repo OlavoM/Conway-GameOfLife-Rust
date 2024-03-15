@@ -210,7 +210,7 @@ fn submenu_preenchimento_manual(mut matriz_atual: [[bool; TAM]; TAM], mut matriz
     }
 }
 
-fn submenu_preenchimento_manual(mut matriz_atual: [[bool; TAM]; TAM], mut matriz_futura: [[bool; TAM]; TAM]) {
+fn submenu_padrao_pronto(mut matriz_atual: [[bool; TAM]; TAM], mut matriz_futura: [[bool; TAM]; TAM]) {
     loop {
         clear_screen();
         imprimir_matriz(&matriz_atual);
