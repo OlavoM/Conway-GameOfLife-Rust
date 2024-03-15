@@ -75,6 +75,9 @@ fn executar_passo(atual: &[[bool; TAM]; TAM], futura: &mut [[bool; TAM]; TAM]) {
             let n_vizinhos = contar_vizinhos(atual, i as i32, j as i32);
             if atual[i][j] && (n_vizinhos == 2 || n_vizinhos == 3) {
                 futura[i][j] = true;
+            } else if !atual[i][j] && n_vizinhos == 3 {
+                futura[i][j] = true;
+            }
             } else {
                 futura[i][j] = false;
             }
