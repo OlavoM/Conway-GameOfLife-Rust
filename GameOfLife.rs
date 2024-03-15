@@ -82,7 +82,7 @@ fn executar_passo(atual: &[[bool; TAM]; TAM], futura: &mut [[bool; TAM]; TAM]) {
     }
 }
 
-fn execucao_na_tela(matriz_atual: &mut [[bool; TAM]; TAM], matriz_futura: &mut [[bool; TAM]; TAM]) {
+fn execucao_na_tela(mut matriz_atual: [[bool; TAM]; TAM], mut matriz_futura: [[bool; TAM]; TAM]) {
     loop {
         clear_screen();
         imprimir_matriz(&matriz_atual);
@@ -93,7 +93,7 @@ fn execucao_na_tela(matriz_atual: &mut [[bool; TAM]; TAM], matriz_futura: &mut [
 
         let stdin = io::stdin();
         let mut buf = String::new();
-        stdin.lock().read_line(&mut buf).expect("Falha ao ler a entrada");
+        io::stdin().read_line(&mut buf).expect("Falha ao ler a entrada");
 
         if buf.trim() == "0" {
             break;
@@ -102,7 +102,7 @@ fn execucao_na_tela(matriz_atual: &mut [[bool; TAM]; TAM], matriz_futura: &mut [
 }
 
 
-fn submenu_preenchimento_manual(matriz_atual: &mut [[bool; TAM]; TAM], matriz_futura: &mut [[bool; TAM]; TAM]) {
+fn submenu_preenchimento_manual(mut matriz_atual: [[bool; TAM]; TAM], mut matriz_futura: [[bool; TAM]; TAM]) {
     loop {
         clear_screen();
         imprimir_matriz(&matriz_atual);
@@ -141,8 +141,8 @@ fn submenu_preenchimento_manual(matriz_atual: &mut [[bool; TAM]; TAM], matriz_fu
 
             matriz_atual[pos_y as usize][pos_x as usize] = true; // Define a célula especificada como vivo
 
-        } else if opcao == 1 {
-            execucao_na_tela(&mut matriz_atual, &mut matriz_futura);
+        } else if opcao == 2 {
+            execucao_na_tela(matriz_atual, matriz_futura);
             break;
         }
     }
@@ -170,7 +170,7 @@ fn main() {
         if opcao == 0 {
             break;
         } else if opcao == 1 {
-            submenu_preenchimento_manual(&mut matriz_atual, &mut matriz_futura);
+            submenu_preenchimento_manual(matriz_atual, matriz_futura);
         }
 
 
