@@ -23,6 +23,86 @@ fn imprimir_matriz(matriz: &[[bool; TAM]; TAM]) {
     }
 }
 
+fn posicao_existe(x: i32, y: i32) -> i32 {
+    if (x >= 0) && (x < TAM as i32) && (y >= 0) && (y < TAM as i32) {
+        true
+    } else {
+        false
+    }
+}
+
+fn contar_vizinhos(matriz: &[[bool; TAM]; TAM], linha: usize, coluna: usize) -> i32 {
+    let mut contador = 0;
+    if posicao_existe(linha - 1, coluna - 1) && matriz[linha - 1][coluna - 1] {
+        contador += 1;
+    }
+    if posicao_existe(linha- 1, coluna) && matriz[linha - 1][coluna] {
+        contador += 1;
+    }
+    if posicao_existe(linha - 1, coluna + 1) && matriz[linha - 1][coluna + 1] {
+        contador += 1;
+    }
+    if posicao_existe(linha, coluna - 1) && matriz[linha][coluna - 1] {
+        contador += 1;
+    }
+    if posicao_existe(linha, coluna + 1) && matriz[linha][coluna + 1] {
+        contador += 1;
+    }
+    if posicao_existe(linha + 1, coluna - 1) && matriz[linha + 1][coluna - 1] {
+        contador += 1;
+    }
+    if posicao_existe(linha + 1, coluna) && matriz[linha + 1][coluna] {
+        contador += 1;
+    }
+    if posicao_existe(linha + 1, coluna + 1) && matriz[linha + 1][coluna + 1] {
+        contador += 1;
+    }
+    contador
+}
+
+fn copiar_matriz(original: &[[bool; TAM]; TAM], copia: &mut [[bool; TAM]; TAM]) {
+    for i in 0..TAM {
+        for j in 0..TAM {
+            copia[i][j] = original[i][j];
+        }
+    }
+}
+
+// Aplica as regras do jogo da vida, usando a matriz atual como base e escrevendo o proximo estado na matriz futura
+fn executar_passo(atual: &[[bool; TAM]; TAM], futura: &mut [[bool; TAM]; TAM]) {
+    for i in 0..TAM {
+        for j in 0..TAM {
+            let n_vizinhos = contar_vizinhos(atual, i, j);
+            if atual[i][j] && (n_vizinhos == 2 || n_vizinhos == 3) {
+                futura[i][j] = true;
+            } else {
+                futura[i][j] = false;
+            }
+        }
+    }
+}
+
+fn execucao_na_tela(matriz_atual: &mut [[bool; TAM]; TAM], matriz_futura: &mut [[bool; TAM]; TAM]) {
+    loop {
+        clear_screen();
+        imprimir_matriz(&matriz_atual);
+        executar_passo(&mut matriz_atual, &mut matriz_futura); // Executa o passo na matriz futura
+        copiar_matriz(&mut matriz_futura, &mut matriz_atual); // Atualiza a matriz
+
+        println!("\n\nAperte Espaco para sair ou Enter para executar o próximo passo");
+
+        let stdin = io::stdin();
+        let mut handle = stdin.lock();
+        let mut buf = String::new();
+        handle.read_line(&mut buf).expect("Falha ao ler a entrada");
+
+        if buf.trim() == "" {
+            break;
+        }
+    }
+}
+
+
 fn submenu_preenchimento_manual(matriz_atual: &mut [[bool; TAM]; TAM], matriz_futura: &mut [[bool; TAM]; TAM]) {
     loop {
         clear_screen();
@@ -40,28 +120,31 @@ fn submenu_preenchimento_manual(matriz_atual: &mut [[bool; TAM]; TAM], matriz_fu
             break;
         } else if opcao == 1 {
             let mut caractere_y = String::new();
-            let mut posY: i32;
-            let mut posX: i32;
+            let mut pos_y: i32;
+            let mut pos_x: i32;
 
-            posY = -1;
-            while posY < 0 || posY > 14 {
+            pos_y = -1;
+            while pos_y < 0 || pos_y > 14 {
                 println!("Digite a coordenada Y (em letra maiúscula):");
                 io::stdin().read_line(&mut caractere_y).expect("Falha ao ler a coordenada Y");
                 let caractere_y: char = caractere_y.trim().chars().next().expect("Entrada inválida");
 
-                posY = (caractere_y as i32) - 65; // Converte a letra para um índice inteiro
+                pos_y = (caractere_y as i32) - 65; // Converte a letra para um índice inteiro
             }
 
             let mut pos_x = String::new();
-            posX = -1;
-            while posX < 0 || posX > 14 {
+            pos_x = -1;
+            while pos_x < 0 || pos_x > 14 {
                 println!("Digite a coordenada X:");
                 io::stdin().read_line(&mut pos_x).expect("Falha ao ler a coordenada X");
-                posX = pos_x.trim().parse().expect("Entrada inválida");
+                pos_x = pos_x.trim().parse().expect("Entrada inválida");
             }
 
-            matriz_atual[posY as usize][posX as usize] = true; // Define a célula especificada como vivo
+            matriz_atual[pos_y as usize][pos_x as usize] = true; // Define a célula especificada como vivo
 
+        } else if opcao == 1 {
+            execucao_na_tela(&mut matriz_atual, &mut matriz_futura);
+            break;
         }
     }
 }
