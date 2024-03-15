@@ -137,7 +137,6 @@ fn executar_passo(atual: &[[bool; TAM]; TAM], futura: &mut [[bool; TAM]; TAM]) {
                 futura[i][j] = true;
             } else if !atual[i][j] && n_vizinhos == 3 {
                 futura[i][j] = true;
-            }
             } else {
                 futura[i][j] = false;
             }
@@ -152,7 +151,7 @@ fn execucao_na_tela(mut matriz_atual: [[bool; TAM]; TAM], mut matriz_futura: [[b
         executar_passo(&mut matriz_atual, &mut matriz_futura); // Executa o passo na matriz futura
         copiar_matriz(&mut matriz_futura, &mut matriz_atual); // Atualiza a matriz
 
-        println!("\n\nAperte Espaco para sair ou Enter para executar o próximo passo");
+        println!("\n\nDigite 0 para sair ou Enter para executar o próximo passo");
 
         let stdin = io::stdin();
         let mut buf = String::new();
@@ -169,7 +168,7 @@ fn submenu_preenchimento_manual(mut matriz_atual: [[bool; TAM]; TAM], mut matriz
     loop {
         clear_screen();
         imprimir_matriz(&matriz_atual);
-        println!("\n\n\nEscolha uma opcao:");
+        println!("\n\n\nEscolha uma opção:");
         println!("0 - Voltar para o menu principal");
         println!("1 - Preencher uma celula");
         println!("2 - executar");
@@ -254,13 +253,11 @@ fn main() {
     let mut matriz_atual: [[bool; TAM]; TAM] = [[false; TAM]; TAM];
     let mut matriz_futura: [[bool; TAM]; TAM] = [[false; TAM]; TAM];
 
-    matriz_atual[1][1] = true;
-
     loop {
         clear_screen();
         println!("Jogo da vida de Conway\n");
         imprimir_matriz(&matriz_atual);
-        println!("\n\n\nEscolha uma opcao:");
+        println!("\n\n\nEscolha uma opção:");
         println!("0 - Sair");
         println!("1 - Preencher manualmente a matriz");
         println!("2 - Usar um padrao pronto");
