@@ -42,10 +42,10 @@ fn contar_vizinhos(matriz: &[[bool; TAM]; TAM], linha: i32, coluna: i32) -> i32 
     if posicao_existe(linha - 1, coluna + 1) && matriz[(linha - 1) as usize][(coluna + 1) as usize] {
         contador += 1;
     }
-    if posicao_existe(linha, coluna - 1) && matriz[linhaas usize][(coluna - 1) as usize] {
+    if posicao_existe(linha, coluna - 1) && matriz[linha as usize][(coluna - 1) as usize] {
         contador += 1;
     }
-    if posicao_existe(linha, coluna + 1) && matriz[linhaas usize][(coluna + 1) as usize] {
+    if posicao_existe(linha, coluna + 1) && matriz[linha as usize][(coluna + 1) as usize] {
         contador += 1;
     }
     if posicao_existe(linha + 1, coluna - 1) && matriz[(linha + 1) as usize][(coluna - 1) as usize] {
@@ -72,7 +72,7 @@ fn copiar_matriz(original: &[[bool; TAM]; TAM], copia: &mut [[bool; TAM]; TAM]) 
 fn executar_passo(atual: &[[bool; TAM]; TAM], futura: &mut [[bool; TAM]; TAM]) {
     for i in 0..TAM {
         for j in 0..TAM {
-            let n_vizinhos = contar_vizinhos(atual, i, j);
+            let n_vizinhos = contar_vizinhos(atual, i as i32, j as i32);
             if atual[i][j] && (n_vizinhos == 2 || n_vizinhos == 3) {
                 futura[i][j] = true;
             } else {
