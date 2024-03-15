@@ -23,7 +23,7 @@ fn imprimir_matriz(matriz: &[[bool; TAM]; TAM]) {
     }
 }
 
-fn posicao_existe(x: i32, y: i32) -> i32 {
+fn posicao_existe(x: i32, y: i32) -> bool {
     if (x >= 0) && (x < TAM as i32) && (y >= 0) && (y < TAM as i32) {
         true
     } else {
@@ -31,9 +31,9 @@ fn posicao_existe(x: i32, y: i32) -> i32 {
     }
 }
 
-fn contar_vizinhos(matriz: &[[bool; TAM]; TAM], linha: usize, coluna: usize) -> i32 {
+fn contar_vizinhos(matriz: &[[bool; TAM]; TAM], linha: i32, coluna: i32) -> i32 {
     let mut contador = 0;
-    if posicao_existe(linha - 1, coluna - 1) && matriz[linha - 1][coluna - 1] {
+    if posicao_existe(linha - 1, coluna - 1) && matriz[(linha - 1) as usize][(coluna - 1) as usize] {
         contador += 1;
     }
     if posicao_existe(linha- 1, coluna) && matriz[linha - 1][coluna] {
@@ -132,12 +132,12 @@ fn submenu_preenchimento_manual(matriz_atual: &mut [[bool; TAM]; TAM], matriz_fu
                 pos_y = (caractere_y as i32) - 65; // Converte a letra para um índice inteiro
             }
 
-            let mut pos_x = String::new();
+            let mut pos_x_input = String::new();
             pos_x = -1;
             while pos_x < 0 || pos_x > 14 {
                 println!("Digite a coordenada X:");
-                io::stdin().read_line(&mut pos_x).expect("Falha ao ler a coordenada X");
-                pos_x = pos_x.trim().parse().expect("Entrada inválida");
+                io::stdin().read_line(&mut pos_x_input).expect("Falha ao ler a coordenada X");
+                pos_x = pos_x_input.trim().parse().expect("Entrada inválida");
             }
 
             matriz_atual[pos_y as usize][pos_x as usize] = true; // Define a célula especificada como vivo
