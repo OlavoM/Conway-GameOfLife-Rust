@@ -36,25 +36,25 @@ fn contar_vizinhos(matriz: &[[bool; TAM]; TAM], linha: i32, coluna: i32) -> i32 
     if posicao_existe(linha - 1, coluna - 1) && matriz[(linha - 1) as usize][(coluna - 1) as usize] {
         contador += 1;
     }
-    if posicao_existe(linha- 1, coluna) && matriz[linha - 1][coluna] {
+    if posicao_existe(linha- 1, coluna) && matriz[(linha - 1) as usize][coluna as usize] {
         contador += 1;
     }
-    if posicao_existe(linha - 1, coluna + 1) && matriz[linha - 1][coluna + 1] {
+    if posicao_existe(linha - 1, coluna + 1) && matriz[(linha - 1) as usize][(coluna + 1) as usize] {
         contador += 1;
     }
-    if posicao_existe(linha, coluna - 1) && matriz[linha][coluna - 1] {
+    if posicao_existe(linha, coluna - 1) && matriz[linhaas usize][(coluna - 1) as usize] {
         contador += 1;
     }
-    if posicao_existe(linha, coluna + 1) && matriz[linha][coluna + 1] {
+    if posicao_existe(linha, coluna + 1) && matriz[linhaas usize][(coluna + 1) as usize] {
         contador += 1;
     }
-    if posicao_existe(linha + 1, coluna - 1) && matriz[linha + 1][coluna - 1] {
+    if posicao_existe(linha + 1, coluna - 1) && matriz[(linha + 1) as usize][(coluna - 1) as usize] {
         contador += 1;
     }
-    if posicao_existe(linha + 1, coluna) && matriz[linha + 1][coluna] {
+    if posicao_existe(linha + 1, coluna) && matriz[(linha + 1) as usize][coluna as usize] {
         contador += 1;
     }
-    if posicao_existe(linha + 1, coluna + 1) && matriz[linha + 1][coluna + 1] {
+    if posicao_existe(linha + 1, coluna + 1) && matriz[(linha + 1) as usize][(coluna + 1) as usize] {
         contador += 1;
     }
     contador
