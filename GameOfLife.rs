@@ -92,11 +92,10 @@ fn execucao_na_tela(matriz_atual: &mut [[bool; TAM]; TAM], matriz_futura: &mut [
         println!("\n\nAperte Espaco para sair ou Enter para executar o próximo passo");
 
         let stdin = io::stdin();
-        let mut handle = stdin.lock();
         let mut buf = String::new();
-        handle.read_line(&mut buf).expect("Falha ao ler a entrada");
+        stdin.lock().read_line(&mut buf).expect("Falha ao ler a entrada");
 
-        if buf.trim() == "" {
+        if buf.trim() == "0" {
             break;
         }
     }
