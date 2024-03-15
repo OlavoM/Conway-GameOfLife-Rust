@@ -68,14 +68,14 @@ fn copiar_matriz(original: &[[bool; TAM]; TAM], copia: &mut [[bool; TAM]; TAM]) 
     }
 }
 
-fn padrao_block(mut matriz: [[bool; TAM]; TAM]) {
+fn padrao_block(matriz: &mut [[bool; TAM]; TAM]) {
     matriz[6][6] = true;
     matriz[6][7] = true;
     matriz[7][6] = true;
     matriz[7][7] = true;
 }
 
-fn padrao_bee_hive(mut matriz: [[bool; TAM]; TAM]) {
+fn padrao_bee_hive(matriz: &mut [[bool; TAM]; TAM]) {
     matriz[5][6] = true;
     matriz[5][7] = true;
     matriz[6][5] = true;
@@ -84,13 +84,13 @@ fn padrao_bee_hive(mut matriz: [[bool; TAM]; TAM]) {
     matriz[7][7] = true;
 }
 
-fn padrao_blinker(mut matriz: [[bool; TAM]; TAM]) {
+fn padrao_blinker(matriz: &mut [[bool; TAM]; TAM]) {
     matriz[5][6] = true;
     matriz[6][6] = true;
     matriz[7][6] = true;
 }
 
-fn padrao_pulsar(mut matriz: [[bool; TAM]; TAM]) {
+fn padrao_pulsar(matriz: &mut [[bool; TAM]; TAM]) {
     matriz[1][3] = true; matriz[1][4] = true; matriz[1][5] = true;
     matriz[1][9] = true; matriz[1][10] = true; matriz[1][11] = true;
     matriz[3][1] = true; matriz[3][6] = true; matriz[3][8] = true;
@@ -109,7 +109,7 @@ fn padrao_pulsar(mut matriz: [[bool; TAM]; TAM]) {
     matriz[11][6] = true; matriz[11][8] = true; matriz[11][13] = true;
 }
 
-fn padrao_glider(mut matriz: [[bool; TAM]; TAM]) {
+fn padrao_glider(matriz: &mut [[bool; TAM]; TAM]) {
     matriz[1][2] = true;
     matriz[2][3] = true;
     matriz[3][1] = true;
@@ -117,7 +117,7 @@ fn padrao_glider(mut matriz: [[bool; TAM]; TAM]) {
     matriz[3][3] = true;
 }
 
-fn padrao_heavy_weight_spaceship(mut matriz: [[bool; TAM]; TAM]) {
+fn padrao_heavy_weight_spaceship(matriz: &mut [[bool; TAM]; TAM]) {
     matriz[5][2] = true; matriz[5][3] = true;
     matriz[5][4] = true; matriz[5][5] = true;
     matriz[5][6] = true; matriz[5][7] = true;
@@ -231,17 +231,17 @@ fn submenu_padrao_pronto(mut matriz_atual: [[bool; TAM]; TAM], mut matriz_futura
         if opcao == 0 {
             break;
         } else if opcao == 1 { // Preenche a matriz com o padrão escolhido, no caso o Block
-            padrao_block(matriz_atual);
+            padrao_block(&mut matriz_atual);
         } else if opcao == 2 {
-            padrao_bee_hive(matriz_atual);
+            padrao_bee_hive(&mut matriz_atual);
         } else if opcao == 3 {
-            padrao_blinker(matriz_atual);
+            padrao_blinker(&mut matriz_atual);
         } else if opcao == 4 {
-            padrao_pulsar(matriz_atual);
+            padrao_pulsar(&mut matriz_atual);
         } else if opcao == 5 {
-            padrao_glider(matriz_atual);
+            padrao_glider(&mut matriz_atual);
         } else if opcao == 6 {
-            padrao_heavy_weight_spaceship(matriz_atual);
+            padrao_heavy_weight_spaceship(&mut matriz_atual);
         } else if opcao == 7 {
             execucao_na_tela(matriz_atual, matriz_futura);
             break;
