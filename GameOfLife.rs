@@ -68,6 +68,66 @@ fn copiar_matriz(original: &[[bool; TAM]; TAM], copia: &mut [[bool; TAM]; TAM]) 
     }
 }
 
+fn padrao_block(mut matriz: [[bool; TAM]; TAM]) {
+    matriz[6][6] = true;
+    matriz[6][7] = true;
+    matriz[7][6] = true;
+    matriz[7][7] = true;
+}
+
+fn padrao_bee_hive(mut matriz: [[bool; TAM]; TAM]) {
+    matriz[5][6] = true;
+    matriz[5][7] = true;
+    matriz[6][5] = true;
+    matriz[6][8] = true;
+    matriz[7][6] = true;
+    matriz[7][7] = true;
+}
+
+fn padrao_blinker(mut matriz: [[bool; TAM]; TAM]) {
+    matriz[5][6] = true;
+    matriz[6][6] = true;
+    matriz[7][6] = true;
+}
+
+fn padrao_pulsar(mut matriz: [[bool; TAM]; TAM]) {
+    matriz[1][3] = true; matriz[1][4] = true; matriz[1][5] = true;
+    matriz[1][9] = true; matriz[1][10] = true; matriz[1][11] = true;
+    matriz[3][1] = true; matriz[3][6] = true; matriz[3][8] = true;
+    matriz[3][13] = true; matriz[4][1] = true; matriz[4][6] = true;
+    matriz[4][8] = true; matriz[4][13] = true; matriz[5][1] = true;
+    matriz[5][6] = true; matriz[5][8] = true; matriz[5][13] = true;
+    matriz[6][3] = true; matriz[6][4] = true; matriz[6][5] = true;
+    matriz[6][9] = true; matriz[6][10] = true; matriz[6][11] = true;
+    matriz[8][3] = true; matriz[8][4] = true; matriz[8][5] = true;
+    matriz[8][9] = true; matriz[8][10] = true; matriz[8][11] = true;
+    matriz[9][1] = true; matriz[9][6] = true; matriz[9][8] = true;
+    matriz[9][13] = true; matriz[10][1] = true; matriz[10][6] = true;
+    matriz[10][8] = true; matriz[10][13] = true; matriz[13][3] = true;
+    matriz[13][4] = true; matriz[13][5] = true; matriz[13][9] = true;
+    matriz[13][10] = true; matriz[13][11] = true; matriz[11][1] = true;
+    matriz[11][6] = true; matriz[11][8] = true; matriz[11][13] = true;
+}
+
+fn padrao_glider(mut matriz: [[bool; TAM]; TAM]) {
+    matriz[1][2] = true;
+    matriz[2][3] = true;
+    matriz[3][1] = true;
+    matriz[3][2] = true;
+    matriz[3][3] = true;
+}
+
+fn padrao_heavy_weight_spaceship(mut matriz: [[bool; TAM]; TAM]) {
+    matriz[5][2] = true; matriz[5][3] = true;
+    matriz[5][4] = true; matriz[5][5] = true;
+    matriz[5][6] = true; matriz[5][7] = true;
+    matriz[6][1] = true; matriz[6][7] = true;
+    matriz[7][7] = true; matriz[8][1] = true;
+    matriz[8][6] = true; matriz[9][3] = true;
+    matriz[9][4] = true;
+}
+
+
 // Aplica as regras do jogo da vida, usando a matriz atual como base e escrevendo o proximo estado na matriz futura
 fn executar_passo(atual: &[[bool; TAM]; TAM], futura: &mut [[bool; TAM]; TAM]) {
     for i in 0..TAM {
@@ -151,6 +211,45 @@ fn submenu_preenchimento_manual(mut matriz_atual: [[bool; TAM]; TAM], mut matriz
     }
 }
 
+fn submenu_preenchimento_manual(mut matriz_atual: [[bool; TAM]; TAM], mut matriz_futura: [[bool; TAM]; TAM]) {
+    loop {
+        clear_screen();
+        imprimir_matriz(&matriz_atual);
+        println!("\n\n\nEscolha uma opcao:");
+        println!("0 - Voltar para o menu principal");
+        println!("1 - Block");
+        println!("2 - Bee-hive");
+        println!("3 - Blinker");
+        println!("4 - Pulsar");
+        println!("5 - Glider");
+        println!("6 - Heavy-weight spaceship");
+        println!("7 - Executar");
+
+        let mut opcao = String::new();
+        io::stdin().read_line(&mut opcao).expect("Falha ao ler a opção");
+        let opcao: i32 = opcao.trim().parse().expect("Entrada inválida");
+
+        if opcao == 0 {
+            break;
+        } else if opcao == 1 { // Preenche a matriz com o padrão escolhido, no caso o Block
+            padrao_block(matriz_atual);
+        } else if opcao == 2 {
+            padrao_bee_hive(matriz_atual);
+        } else if opcao == 3 {
+            padrao_blinker(matriz_atual);
+        } else if opcao == 4 {
+            padrao_pulsar(matriz_atual);
+        } else if opcao == 5 {
+            padrao_glider(matriz_atual);
+        } else if opcao == 6 {
+            padrao_heavy_weight_spaceship(matriz_atual);
+        } else if opcao == 7 {
+            execucao_na_tela(matriz_atual, matriz_futura);
+            break;
+        }
+    }
+}
+
 fn main() {
     let mut matriz_atual: [[bool; TAM]; TAM] = [[false; TAM]; TAM];
     let mut matriz_futura: [[bool; TAM]; TAM] = [[false; TAM]; TAM];
@@ -174,6 +273,8 @@ fn main() {
             break;
         } else if opcao == 1 {
             submenu_preenchimento_manual(matriz_atual, matriz_futura);
+        } else if opcao == 2 {
+            submenu_padrao_pronto(matriz_atual, matriz_futura);
         }
 
 
