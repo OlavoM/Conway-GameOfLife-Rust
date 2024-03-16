@@ -1,5 +1,5 @@
 # Conway-GameOfLife-Rust
-My old C Game of Life translated to the Rust Language
+Meu código do Jogo da Vida de Conway traduzido pra a linguagem Rust, com algumas melhorias na CLI
 
 
 <br>
