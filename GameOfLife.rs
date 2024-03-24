@@ -7,20 +7,23 @@ fn clear_screen() {
 }
 
 fn imprimir_matriz(matriz: &[[bool; TAM]; TAM]) {
-    println!("  _0|_1|_2|_3|_4|_5|_6|_7|_8|_9|10|11|12|13|14|");
+    let mut matrizStringBuffer = String::new();
+    matrizStringBuffer += "  _0|_1|_2|_3|_4|_5|_6|_7|_8|_9|10|11|12|13|14|\n";
     for i in 0..TAM {
-        print!("{} ", (i as u8 + 65) as char); // Letras das linhas
+        matrizStringBuffer += ("{} ", (i as u8 + 65) as char); // Letras das linhas
 
         for j in 0..TAM {
             if matriz[i][j] {
-                print!("\u{2588}\u{2588}"); // Vivo imprime como quadrado preenchido
+                matrizStringBuffer += "\u{2588}\u{2588}"; // Vivo imprime como quadrado preenchido
             } else {
-                print!("__"); // Morto imprime como underline (quadrado vazio)
+                matrizStringBuffer += "__"; // Morto imprime como underline (quadrado vazio)
             }
-            print!("|");
+            matrizStringBuffer += "|";
         }
-        println!();
+
+        matrizStringBuffer += "\n";
     }
+    print!(matrizStringBuffer);
 }
 
 fn posicao_existe(x: i32, y: i32) -> bool {
